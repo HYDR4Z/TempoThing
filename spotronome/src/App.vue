@@ -18,21 +18,22 @@
       accessToken.value = res.data.accessToken;
       refreshToken.value = res.data.refreshToken;
       expiresIn.value = res.data.expiresIn;
-    }).catch(() => window.location = '/');
+    })
   });
 
-  watch([accessToken, expiresIn], async () => {
-    if (!accessToken.value || !expiresIn.value) return;
-    const refreshInterval = setInterval(() => {
-      axios.post(`${import.meta.env.VITE_AUTH_ENDPOINT}/refresh`, {
-        code
-      }).then(res => {
-        accessToken.value = res.data.accessToken;
-        expiresIn.value = res.data.expiresIn;
-      }).catch(() => window.location = '/');
-    }, (expiresIn - 60) * 1000);
-    return () => clearInterval(refreshInterval);
-  }, { immediate: true });
+  // watch([accessToken, expiresIn], async () => {
+  //   if (!accessToken.value || !expiresIn.value) return;
+  //   console.log(refreshToken.value, expiresIn.value)
+  //   const refreshInterval = setInterval(() => {
+  //     axios.post(`${import.meta.env.VITE_AUTH_ENDPOINT}/refresh`, {
+  //       code
+  //     }).then(res => {
+  //       accessToken.value = res.data.accessToken;
+  //       expiresIn.value = res.data.expiresIn;
+  //     })
+  //   }, (expiresIn - 60) * 1000);
+  //   return () => clearInterval(refreshInterval);
+  // }, { immediate: true });
 </script>
 
 <template>
