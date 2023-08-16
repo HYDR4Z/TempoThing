@@ -1,5 +1,18 @@
 <script setup>
   import { RouterLink, RouterView } from 'vue-router'
+  import Login from './components/Login.vue'
+  import { watchEffect } from 'vue';
+  import axios from 'axios';
+
+  const code = new URLSearchParams(window.location.search).get('code');
+  watchEffect(() => {
+    if (!code) return;
+    axios.post(`${import.meta.env.VITE_AUTH_ENDPOINT}/login`, {
+      code
+    }).then(res => {
+      console.log(res.data)
+    }).catch(() => window.location = '/');
+  });
 </script>
 
 <template>
@@ -9,7 +22,7 @@
       <nav>
         <RouterLink to="/">Home</RouterLink>
       </nav>
-      <a>Logout</a>
+      <Login v-if="!code" />
     </div>
   </header>
 
