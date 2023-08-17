@@ -71,6 +71,7 @@ header a {
 footer {
   position: relative;
   display: flex;
+  justify-content: space-between;
   height: 140px;
   width: 100%;
   flex-direction: row;
@@ -94,7 +95,7 @@ footer::before {
   all: unset;
   padding: 8px;
   border-radius: 12px;
-  border: 1px solid rgb(119, 119, 119);
+  border: 1px solid white;
 }
 
 input::-webkit-outer-spin-button,
@@ -103,23 +104,38 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
 .metronome-wrapper {
   display: flex;
+  align-items: center;
   gap: 24px;
+  margin-right: 24px;
 }
 
 .metronome-section {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 200px;
   gap: 12px;
-  background-color: red;
+  padding-left: 24px;
+  border-left: 1px solid white;
+}
+
+.metronome-section > p {
+  margin-bottom: -7px;
+}
+
+.playpause-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 3px solid white;
+  border-radius: 90px;
+  height: 50px;
+  width: 50px;
+  margin-left: 24px;
+  cursor: pointer;
 }
 
 .tempo-input-wrapper {
@@ -145,6 +161,10 @@ input[type=number] {
 
 .tone-slider {
   width: 100%;
+}
+
+.volume-slider {
+  width: 144px
 }
 
 .nav-wrapper {
