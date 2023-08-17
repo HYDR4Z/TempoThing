@@ -80,13 +80,14 @@
     }
   }
 
-  const setTempo = (newTempo) => {
+  const setTrackInfo = (newTempo, newTimeSignature) => {
     tempo.value = newTempo;
+    beatsPerBar = newTimeSignature;
   }
 
   defineExpose({
     start,
-    setTempo
+    setTrackInfo
   });
 </script>
 

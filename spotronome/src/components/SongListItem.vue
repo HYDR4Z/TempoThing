@@ -10,7 +10,11 @@
   const { track } = toRefs(props);
 
   const playTrack = () => {
-    emit('onTrackPlay', track.value.id);
+    emit('onTrackPlay', track.value.id, false);
+  }
+
+  const playTrackSpotify = () => {
+    emit('onTrackPlay', track.value.id, true);
   }
 </script>
 
@@ -23,6 +27,7 @@
         <p class="track-list-item-artist">{{ track.artist.name }}</p>
       </div>
       <div class="track-list-item-actions">
+        <i class="fa-brands fa-spotify fa-fw" @click="playTrackSpotify"></i>
         <i class="fa-solid fa-play fa-fw" @click="playTrack"></i>
       </div>
     </div>

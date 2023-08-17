@@ -43,6 +43,15 @@
     }, (expiresIn.value - 60) * 1000);
     return () => clearInterval(refreshInterval);
   }, { immediate: true });
+
+
+  // TODO: Add user avatar or something
+  // spotifyApi.getMe()
+  // .then(function(data) {
+  //   console.log('Some information about the authenticated user', data.body);
+  // }, function(err) {
+  //   console.log('Something went wrong!', err);
+  // });
 </script>
 
 <template>

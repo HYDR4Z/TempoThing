@@ -2,7 +2,6 @@
   import { ref, toRefs, watch } from 'vue';
   import SpotifyWebApi from 'spotify-web-api-node';
   import SongListItem from './SongListItem.vue';
-  import axios from 'axios';
   
   const emit = defineEmits(['onTrackPlay']);
 
@@ -44,12 +43,10 @@
     });
   });
 
-  const onTrackPlay = (trackId) => {
-    axios.get(`https://api.spotify.com/v1/audio-features/${trackId}`, {
-      headers: { 'Authorization': `Bearer ${token.value}` }
-    }).then(res => {
-      emit('onTrackPlay', res.data);
-    })
+  const onTrackPlay = (trackId, listen) => {
+    spotifyApi.getAudioFeaturesForTrack(trackId).then(res => {
+      emit('onTrackPlay', res.body, listen)
+    });
   }
 </script>
 

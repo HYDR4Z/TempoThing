@@ -2,19 +2,26 @@
   import SongSearch from './components/SongSearch.vue';
   import Login from './components/Login.vue';
   import Metronome from './components/Metronome.vue';
+  import Player from './components/Player.vue';
   import { ref } from 'vue';
 
   const accessToken = ref(null);
-  const metronome = ref(null)
+  const metronome = ref(null);
+  const player = ref(null);
 
   const onAuthChanged = (token) => {
     accessToken.value = token;
   }
 
-  const onTrackPlay = (track) => {
-    console.log(track.tempo)
-    metronome.value.setTempo(track.tempo);
-    metronome.value.start();
+  const onTrackPlay = (track, listen) => {
+    metronome.value.setTrackInfo(track.tempo, track.time_signature);
+    if (listen) {
+      player.value.playTrack(track.id).then(() => {
+        metronome.value.start();
+      });
+    } else {
+      metronome.value.start();
+    }
   }
 </script>
 
@@ -27,12 +34,15 @@
     </div>
   </header>
   <main>
-    <div class="home-wrapper">
+    <div class="home-wrapper" v-if="accessToken">
       <SongSearch :token="accessToken" @onTrackPlay="onTrackPlay" />
     </div>
+    <h2 class="signin-text" v-if="!accessToken">
+      <a>Sign in using Spotify</a> to sync to your music
+    </h2>
   </main>
   <footer>
-    <p></p>
+    <Player ref="player" :token="accessToken" />
     <Metronome ref="metronome" />
   </footer>
 </template>

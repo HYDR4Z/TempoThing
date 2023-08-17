@@ -29,9 +29,16 @@
 }
 
 main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: rgb(44, 44, 44);
   height: calc(100% - 55px - 140px);
   padding: 22px;
+}
+
+.signin-text {
+  margin-top: -64px;
 }
 
 header {
@@ -156,6 +163,7 @@ footer::before {
   flex-direction: row;
   align-items: center;
   margin-right: 16px;
+  gap: 18px;
   height: 100%;
 }
 
@@ -254,6 +262,23 @@ input::-webkit-inner-spin-button {
   align-items: center;
   width: 100%;
   margin-right: 22px;
+}
+
+.player-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-right: 24px;
+}
+
+.player-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  gap: 12px;
+  padding-left: 24px;
+  border-left: 1px solid white;
 }
 
 ::-webkit-scrollbar {
