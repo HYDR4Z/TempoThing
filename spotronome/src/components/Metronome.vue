@@ -3,7 +3,7 @@
   import { ref, watch } from 'vue';
 
   const tempo = new ref(120);
-  const volume = new ref(50);
+  const volume = new ref(25);
   const beatFreq = new ref(1108.73);
   const quarterFreq = new ref(880);
 
@@ -20,7 +20,7 @@
   let notesInQueue = [];
   let currentBeatInBar = 0;
   let beatsPerBar = 4;
-  let lookahead = 25;
+  let lookahead = 0;
   let scheduleAheadTime = 0.1;
   let nextNoteTime = 0.0;
   let intervalID = null;
@@ -58,18 +58,36 @@
     }
   }
 
+  const start = () => {
+    if (isRunning) stop();
+    if (audioContext == null) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    isRunning.value = true;
+    currentBeatInBar = 0;
+    nextNoteTime = audioContext.currentTime + 0.05;
+    intervalID = setInterval(() => scheduler(), lookahead);
+  }
+
+  const stop = () => {
+    isRunning.value = false;
+    clearInterval(intervalID);
+  }
+
   const startStop = () => {
     if (!isRunning.value) {
-      if (audioContext == null) audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      isRunning.value = true;
-      currentBeatInBar = 0;
-      nextNoteTime = audioContext.currentTime + 0.05;
-      intervalID = setInterval(() => scheduler(), lookahead);
+      start();
     } else {
-      isRunning.value = false;
-      clearInterval(intervalID);
+      stop();
     }
   }
+
+  const setTempo = (newTempo) => {
+    tempo.value = newTempo;
+  }
+
+  defineExpose({
+    start,
+    setTempo
+  });
 </script>
 
 <template>
@@ -81,7 +99,7 @@
     <div class="metronome-section">
       <div class="tempo-input-wrapper">
         <i class="fa-solid fa-minus fa-fw" @click="decreaseTempo"></i>
-        <input class="tempo-input" type="number" v-model="tempo" />
+        <input class="box-input" type="number" v-model="tempo" />
         <i class="fa-solid fa-plus fa-fw" @click="increaseTempo"></i>
       </div>
       <div class="volume-input-wrapper">

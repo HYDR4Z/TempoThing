@@ -30,7 +30,7 @@
 
 main {
   background: rgb(44, 44, 44);
-  height: 100%;
+  height: calc(100% - 55px - 140px);
   padding: 22px;
 }
 
@@ -91,11 +91,91 @@ footer::before {
   animation: gradient 10s ease infinite;
 }
 
-.tempo-input {
+.home-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  gap: 24px;
+}
+
+.song-search-wrapper {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background-color: rgb(36, 36, 36);
+}
+
+.track-list {
+  padding: 12px 24px 12px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: auto;
+  height: calc(100% - 41px - 24px);
+}
+
+.track-list-item {
+  display: flex;
+  height: 64px;
+  gap: 12px;
+  background-color: rgb(22, 22, 22);
+}
+
+.track-list-item > img {
+  height: 64px;
+  width: 64px;
+}
+
+.track-list-item > div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.track-list-item-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.track-list-item-title {
+  /* TODO: Text wrapping */
+}
+
+.track-list-item-artist {
+  color: #a0a0a0;
+  /* TODO: Text wrapping */
+}
+
+.track-list-item-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 16px;
+  height: 100%;
+}
+
+.track-list-item-actions > i {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.box-input {
   all: unset;
   padding: 8px;
   border-radius: 12px;
-  border: 1px solid white;
+  background-color: rgb(22, 22, 22);
+}
+
+.search-input {
+  width: calc(100% - 48px);
+  padding-left: 24px;
+  padding-right: 24px;
+  border-radius: 0px;
 }
 
 input::-webkit-outer-spin-button,
@@ -174,4 +254,21 @@ input::-webkit-inner-spin-button {
   align-items: center;
   width: 100%;
   margin-right: 22px;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(75deg, rgb(255, 106, 255) , rgb(92, 236, 255));
+  border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: white; 
 }
