@@ -135,9 +135,10 @@ footer::before {
   cursor: pointer;
 }
 
-.no-results-text {
+.result-list-info {
   width: 100%;
   margin-top: 24px;
+  margin-bottom: 24px;
   text-align: center;
 }
 

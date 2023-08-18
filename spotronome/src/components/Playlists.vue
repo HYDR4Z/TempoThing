@@ -95,9 +95,11 @@
     <div class="spinner" v-if="isLoading"></div>
     <div class="result-list" v-if="!selectedPlaylist && !isLoading">
       <PlaylistCard v-for="playlist in playlists" :playlist="playlist" @onSelectPlaylist="onSelectPlaylist" />
+      <h3 class="result-list-info" v-if="playlists.length == 50">This list only shows up to 50 items...</h3>
     </div>
     <div class="result-list" v-if="selectedPlaylist && !isLoading">
       <SongCard v-for="track in selectedPlaylist.tracks" :track="track" @onTrackPlay="onTrackPlay" />
+      <h3 class="result-list-info" v-if="selectedPlaylist.tracks.length == 100">This list only shows up to 100 items...</h3>
     </div>
   </section>
 </template>

@@ -62,7 +62,7 @@
     </div>
     <div class="result-list">
       <SongCard v-for="track in searchResults" :track="track" @onTrackPlay="onTrackPlay" />
-      <h2 class="no-results-text" v-if="!searchResults.length">No songs found...</h2>
+      <h3 class="result-list-info" v-if="!searchResults.length">No songs found...</h3>
     </div>
   </section>
 </template>
