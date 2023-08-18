@@ -1,7 +1,7 @@
 <script setup>
   import { toRefs } from 'vue';
 
-  const emit = defineEmits(['onOpenPlaylist']);
+  const emit = defineEmits(['onSelectPlaylist']);
 
   const props = defineProps({
     playlist: Object
@@ -9,8 +9,8 @@
 
   const { playlist } = toRefs(props);
 
-  const openPlaylist = () => {
-    emit('onOpenPlaylist', playlist.value.id);
+  const selectPlaylist = () => {
+    emit('onSelectPlaylist', playlist.value);
   }
 </script>
 
@@ -23,7 +23,7 @@
         <a class="result-list-item-secondary" target="_blank" :href="playlist.owner.url">{{ playlist.owner.name }}</a>
       </div>
       <div class="result-list-item-actions">
-        <i class="fa-solid fa-arrow-right fa-fw" @click="openPlaylist"></i>
+        <i class="fa-solid fa-arrow-right fa-fw" @click="selectPlaylist"></i>
       </div>
     </div>
   </article>

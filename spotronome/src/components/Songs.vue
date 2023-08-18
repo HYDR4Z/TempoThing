@@ -1,7 +1,7 @@
 <script setup>
   import { ref, toRefs, watch } from 'vue';
   import SpotifyWebApi from 'spotify-web-api-node';
-  import SongListItem from './SongListItem.vue';
+  import SongCard from './SongCard.vue';
   
   const emit = defineEmits(['onTrackPlay']);
 
@@ -9,13 +9,13 @@
     token: String
   });
 
-  const { token } = toRefs(props);
-  const searchText = ref('');
-  const searchResults = ref([]);
-
   const spotifyApi = new SpotifyWebApi({
     clientId: 'dde63debce154f3f85fa86c5b6e43ddb'
   });
+
+  const { token } = toRefs(props);
+  const searchText = ref('');
+  const searchResults = ref([]);
 
   watch(token, () => {
     if (token.value) spotifyApi.setAccessToken(token.value);
@@ -56,10 +56,13 @@
 </script>
 
 <template>
-  <div class="song-search-wrapper">
-    <input class="box-input search-input" type="text" v-model="searchText" placeholder="Enter a song or artist..." />
-    <div class="result-list">
-      <SongListItem v-for="track in searchResults" :track="track" @onTrackPlay="onTrackPlay" />
+  <section>
+    <div class="result-list-header">
+      <input class="search-input" type="text" v-model="searchText" placeholder="Enter a song or artist..." />
     </div>
-  </div>
+    <div class="result-list">
+      <SongCard v-for="track in searchResults" :track="track" @onTrackPlay="onTrackPlay" />
+      <h2 class="no-results-text" v-if="!searchResults.length">No songs found...</h2>
+    </div>
+  </section>
 </template>

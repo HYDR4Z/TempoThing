@@ -1,6 +1,6 @@
 <script setup>
-  import SongSearch from './components/SongSearch.vue';
-  import PlaylistBrowser from './components/PlaylistBrowser.vue';
+  import Songs from './components/Songs.vue';
+  import Playlists from './components/Playlists.vue';
   import Login from './components/Login.vue';
   import Metronome from './components/Metronome.vue';
   import Player from './components/Player.vue';
@@ -35,9 +35,9 @@
     </div>
   </header>
   <main>
-    <div class="home-wrapper" v-if="accessToken">
-      <PlaylistBrowser :token="accessToken" />
-      <SongSearch :token="accessToken" @onTrackPlay="onTrackPlay" />
+    <div class="main-wrapper" v-if="accessToken">
+      <Playlists :token="accessToken" @onTrackPlay="onTrackPlay" />
+      <Songs :token="accessToken" @onTrackPlay="onTrackPlay" />
     </div>
     <h2 class="signin-text" v-if="!accessToken">
       <a>Sign in using Spotify</a> to sync to your music
