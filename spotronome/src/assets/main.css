@@ -20,12 +20,16 @@
   }
 
   50% {
-      background-position: 100% 50%;
+    background-position: 100% 50%;
   }
   
   100% {
-      background-position: 0% 50%;
+    background-position: 0% 50%;
   }
+}
+
+body {
+  background: rgb(36, 36, 36);
 }
 
 main {
@@ -33,7 +37,7 @@ main {
   justify-content: center;
   align-items: center;
   background: rgb(44, 44, 44);
-  height: calc(100% - 55px - 140px);
+  height: calc(100% - 219px);
   padding: 22px;
 }
 
@@ -79,7 +83,7 @@ footer {
   position: relative;
   display: flex;
   justify-content: space-between;
-  height: 140px;
+  height: 120px;
   width: 100%;
   flex-direction: row;
   background-color: rgb(36, 36, 36);
@@ -165,7 +169,6 @@ footer::before {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
   height: 100%;
 }
 
@@ -222,16 +225,19 @@ input::-webkit-inner-spin-button {
   align-items: center;
   gap: 24px;
   margin-right: 24px;
+  height: calc(100% - 48px);
 }
 
 .metronome-section {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   width: 200px;
+  height: 100%;
   gap: 12px;
   padding-left: 24px;
-  border-left: 1px solid white;
+  border-left: 1px solid #a0a0a0;
 }
 
 .metronome-section > p {
@@ -277,7 +283,7 @@ input::-webkit-inner-spin-button {
 }
 
 .volume-slider {
-  width: 144px
+  width: 144px;
 }
 
 .nav-wrapper {
@@ -292,6 +298,7 @@ input::-webkit-inner-spin-button {
 .player-wrapper {
   display: flex;
   align-items: center;
+  height: calc(100% - 48px);
   gap: 24px;
   margin-left: 24px;
 }
@@ -342,9 +349,30 @@ input::-webkit-inner-spin-button {
   flex-direction: column;
   align-items: center;
   width: 200px;
+  height: 100%;
   gap: 12px;
   padding-left: 24px;
-  border-left: 1px solid white;
+  border-left: 1px solid #a0a0a0;
+}
+
+.player-control-buttons {
+  display: flex;
+  margin-top: 12px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.player-control-buttons i {
+  cursor: pointer;
+}
+
+.player-control-buttons > i:first-child {
+  padding-right: 24px;
+}
+
+.player-control-buttons > i:last-child {
+  padding-left: 24px;
 }
 
 .spinner {
@@ -366,6 +394,43 @@ input::-webkit-inner-spin-button {
   animation: spinner 1s linear infinite;
 }
 
+input[type="range"] { 
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  height: 6px;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 12px;
+  -webkit-appearance: none;
+}
+
+::-webkit-slider-runnable-track {
+  background: rgb(22, 22, 22);
+}
+
+::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  background: rgb(255, 106, 255);
+  box-shadow: -200px 0 0 200px rgb(92, 236, 255);
+}
+
+::-moz-range-track {
+  height: 40px;
+  background: #ddd;
+}
+
+::-moz-range-thumb {
+  background: rgb(255, 106, 255);
+  height: 12px;
+  width: 12px;
+  border-radius: 0 !important;
+  box-shadow: -200px 0 0 200px rgb(92, 236, 255);
+  box-sizing: border-box;
+}
+
 @keyframes spinner {
   0% {
     transform: rotate(0deg);
@@ -377,6 +442,7 @@ input::-webkit-inner-spin-button {
 
 ::-webkit-scrollbar {
   width: 3px;
+  height: 3px;
 }
 
 ::-webkit-scrollbar-track {

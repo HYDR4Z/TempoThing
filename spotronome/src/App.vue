@@ -14,6 +14,10 @@
     accessToken.value = token;
   }
 
+  const onSyncMetronome = (track) => {
+    metronome.value.setTrackInfo(track.tempo, track.time_signature);
+  }
+
   const onTrackPlay = (track, listen) => {
     metronome.value.setTrackInfo(track.tempo, track.time_signature);
     if (listen) {
@@ -44,7 +48,7 @@
     </h2>
   </main>
   <footer>
-    <Player ref="player" :token="accessToken" />
+    <Player ref="player" :token="accessToken" @onSyncMetronome="onSyncMetronome" />
     <Metronome ref="metronome" />
   </footer>
 </template>
