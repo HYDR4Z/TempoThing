@@ -35,9 +35,14 @@
         return {
           id: track.id,
           title: track.name,
-          artist: track.artists[0],
-          uri: track.uri,
-          albumUrl: smallestImage.url
+          url: track.external_urls.spotify,
+          artist: {
+            name: track.artists[0].name,
+            url: track.artists[0].external_urls.spotify,
+          },
+          album: {
+            image: smallestImage.url
+          }
         };
       });
     });
@@ -52,8 +57,8 @@
 
 <template>
   <div class="song-search-wrapper">
-    <input class="box-input search-input" type="text" v-model="searchText" placeholder="Enter a song name..." />
-    <div class="track-list">
+    <input class="box-input search-input" type="text" v-model="searchText" placeholder="Enter a song or artist..." />
+    <div class="result-list">
       <SongListItem v-for="track in searchResults" :track="track" @onTrackPlay="onTrackPlay" />
     </div>
   </div>

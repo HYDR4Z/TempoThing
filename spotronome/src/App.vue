@@ -1,5 +1,6 @@
 <script setup>
   import SongSearch from './components/SongSearch.vue';
+  import PlaylistBrowser from './components/PlaylistBrowser.vue';
   import Login from './components/Login.vue';
   import Metronome from './components/Metronome.vue';
   import Player from './components/Player.vue';
@@ -35,6 +36,7 @@
   </header>
   <main>
     <div class="home-wrapper" v-if="accessToken">
+      <PlaylistBrowser :token="accessToken" />
       <SongSearch :token="accessToken" @onTrackPlay="onTrackPlay" />
     </div>
     <h2 class="signin-text" v-if="!accessToken">

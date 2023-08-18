@@ -19,14 +19,14 @@
 </script>
 
 <template>
-  <article class="track-list-item">
-    <img :src="track.albumUrl" />
+  <article class="result-list-item">
+    <img :src="track.album.image" />
     <div>
-      <div class="track-list-item-details">
-        <a class="track-list-item-title" target="_blank" :href="`https://open.spotify.com/track/${track.id}`">{{ track.title }}</a>
-        <a class="track-list-item-artist" target="_blank" :href="track.artist.external_urls.spotify">{{ track.artist.name }}</a>
+      <div class="result-list-item-details">
+        <a class="result-list-item-primary" target="_blank" :href="track.url">{{ track.title }}</a>
+        <a class="result-list-item-secondary" target="_blank" :href="track.artist.url">{{ track.artist.name }}</a>
       </div>
-      <div class="track-list-item-actions">
+      <div class="result-list-item-actions">
         <i class="fa-brands fa-spotify fa-fw" @click="playTrackSpotify"></i>
         <i class="fa-solid fa-play fa-fw" @click="playTrack"></i>
       </div>

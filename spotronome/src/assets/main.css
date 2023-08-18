@@ -113,7 +113,7 @@ footer::before {
   background-color: rgb(36, 36, 36);
 }
 
-.track-list {
+.result-list {
   padding: 12px 24px 12px 24px;
   display: flex;
   flex-direction: column;
@@ -122,26 +122,26 @@ footer::before {
   height: calc(100% - 41px - 24px);
 }
 
-.track-list-item {
+.result-list-item {
   display: flex;
   height: 64px;
   gap: 12px;
   background-color: rgb(22, 22, 22);
 }
 
-.track-list-item > img {
+.result-list-item > img {
   height: 64px;
   width: 64px;
 }
 
-.track-list-item > div {
+.result-list-item > div {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: space-between;
 }
 
-.track-list-item-details {
+.result-list-item-details {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -149,19 +149,19 @@ footer::before {
   height: 100%;
 }
 
-.track-list-item-title:hover {
+.result-list-item-primary:hover {
   text-decoration: underline;
 }
 
-.track-list-item-artist {
+.result-list-item-secondary {
   color: #a0a0a0;
 }
 
-.track-list-item-artist:hover {
+.result-list-item-secondary:hover {
   text-decoration: underline;
 }
 
-.track-list-item-actions {
+.result-list-item-actions {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -170,7 +170,7 @@ footer::before {
   height: 100%;
 }
 
-.track-list-item-actions > i {
+.result-list-item-actions > i {
   font-size: 20px;
   cursor: pointer;
 }
