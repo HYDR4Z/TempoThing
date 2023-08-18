@@ -257,6 +257,10 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
 }
 
+.tap-button-highlight {
+  color: rgb(255, 106, 255);
+}
+
 .tempo-input-wrapper {
   display: flex;
   align-items: center;

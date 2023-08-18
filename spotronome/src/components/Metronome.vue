@@ -7,12 +7,25 @@
   const beatFreq = new ref(1108.73);
   const quarterFreq = new ref(880);
 
-  const increaseTempo = () => {
-    tempo.value += 1;
-  }
+  const tapTimeoutId = new ref(null);
+  let taps = [];
 
-  const decreaseTempo = () => {
-    tempo.value -= 1;
+  const onTap = () => {
+    if (tapTimeoutId.value) clearTimeout(tapTimeoutId.value);
+    taps.push(Date.now());
+    if (taps.length > 20) taps.shift();
+    if (taps.length > 1) {
+      let sumDifferences = 0;
+      for (let i = 1; i < taps.length; i++) {
+        const difference = taps[i] - taps[i - 1];
+        sumDifferences += difference;
+      }
+      tempo.value = (60.00 / (sumDifferences / (taps.length - 1)) * 1000).toFixed(3);
+    }
+    tapTimeoutId.value = setTimeout(() => {
+      tapTimeoutId.value = null;
+      taps = [];
+    }, 2000);
   }
 
   const isRunning = ref(false);
@@ -73,11 +86,8 @@
   }
 
   const startStop = () => {
-    if (!isRunning.value) {
-      start();
-    } else {
-      stop();
-    }
+    if (!isRunning.value) start();
+    else stop();
   }
 
   const setTrackInfo = (newTempo, newTimeSignature) => {
@@ -86,8 +96,8 @@
   }
 
   defineExpose({
-    start,
-    setTrackInfo
+    setTrackInfo,
+    start
   });
 </script>
 
@@ -99,9 +109,8 @@
     </a>
     <div class="metronome-section">
       <div class="tempo-input-wrapper">
-        <i class="fa-solid fa-minus fa-fw" @click="decreaseTempo"></i>
+        <i class="fa-solid fa-hand-point-up fa-fw" :class="{ 'tap-button-highlight': tapTimeoutId }" @click="onTap"></i>
         <input class="box-input" type="number" v-model="tempo" />
-        <i class="fa-solid fa-plus fa-fw" @click="increaseTempo"></i>
       </div>
       <div class="volume-input-wrapper">
         <i class="fa-solid fa-volume-off fa-fw"></i>
