@@ -149,13 +149,16 @@ footer::before {
   height: 100%;
 }
 
-.track-list-item-title {
-  /* TODO: Text wrapping */
+.track-list-item-title:hover {
+  text-decoration: underline;
 }
 
 .track-list-item-artist {
   color: #a0a0a0;
-  /* TODO: Text wrapping */
+}
+
+.track-list-item-artist:hover {
+  text-decoration: underline;
 }
 
 .track-list-item-actions {
@@ -268,7 +271,48 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   gap: 24px;
-  margin-right: 24px;
+  margin-left: 24px;
+}
+
+.player-image {
+  width: 64px;
+  height: 64px;
+}
+
+.image-playpause-overlay {
+  position: absolute;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: .1s ease;
+}
+
+.image-playpause-overlay:hover {
+  opacity: 1;
+}
+
+.player-track-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.player-track-title:hover {
+  text-decoration: underline;
+}
+
+.player-track-artist {
+  color: #a0a0a0;
+}
+
+.player-track-artist:hover {
+  text-decoration: underline;
 }
 
 .player-section {

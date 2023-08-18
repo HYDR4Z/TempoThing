@@ -23,8 +23,8 @@
     <img :src="track.albumUrl" />
     <div>
       <div class="track-list-item-details">
-        <p class="track-list-item-title">{{ track.title }}</p>
-        <p class="track-list-item-artist">{{ track.artist.name }}</p>
+        <a class="track-list-item-title" target="_blank" :href="`https://open.spotify.com/track/${track.id}`">{{ track.title }}</a>
+        <a class="track-list-item-artist" target="_blank" :href="track.artist.external_urls.spotify">{{ track.artist.name }}</a>
       </div>
       <div class="track-list-item-actions">
         <i class="fa-brands fa-spotify fa-fw" @click="playTrackSpotify"></i>

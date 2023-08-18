@@ -18,35 +18,47 @@
   }, { immediate: true });
 
   const playTrack = async (trackId) => {
-    return await spotifyApi.play({ uris: [`spotify:track:${trackId}`] });
+    return await spotifyApi.play({ uris: [`spotify:track:${trackId}`] }).then(() => fetchPlaybackState());
+  }
+
+  const fetchPlaybackState = () => {
+    if (!token.value) return;
+    spotifyApi.getMyCurrentPlaybackState().then(res => {
+      if (!res.body || !res.body.item) return;
+      const smallestImage = res.body.item.album.images.reduce((smallest, image) => {
+        if (image.height < smallest.height) return image;
+        return smallest;
+      });
+      playbackState.value = {
+        isPlaying: res.body.is_playing,
+        progress: Math.floor(res.body.progress_ms / 1000),
+        track: {
+          id: res.body.item.id,
+          length: Math.floor(res.body.item.duration_ms / 1000),
+          artist: res.body.item.artists[0],
+          title: res.body.item.name,
+          albumUrl: smallestImage.url
+        }
+      };
+    });
   }
 
   onMounted(() => {
     setInterval(() => {
-      if (!token.value) return;
-      spotifyApi.getMyCurrentPlaybackState().then(res => {
-        const smallestImage = res.body.item.album.images.reduce((smallest, image) => {
-          if (image.height < smallest.height) return image;
-          return smallest;
-        });
-        playbackState.value = {
-          isPlaying: res.body.is_playing,
-          progress: Math.floor(res.body.progress_ms / 1000),
-          track: {
-            id: res.body.item.id,
-            length: Math.floor(res.body.item.duration_ms / 1000),
-            artist: res.body.item.artists[0],
-            title: res.body.item.name,
-            albumUrl: smallestImage.url
-          }
-        };
-      });
-    }, 500);
+      fetchPlaybackState();
+    }, 1000);
   });
 
   const startStop = () => {
-    if (playbackState.isPlaying) spotifyApi.pause();
-    else spotifyApi.play();
+    if (playbackState.value.isPlaying) {
+      spotifyApi.pause().then(() => {
+        fetchPlaybackState();
+      });
+    } else {
+      spotifyApi.play().then(() => {
+        fetchPlaybackState();
+      });
+    }
   }
 
   defineExpose({
@@ -55,20 +67,16 @@
 </script>
 
 <template>
+  <div v-if="!playbackState && token"></div>
   <div class="player-wrapper" v-if="playbackState">
-    <img :src="playbackState.track.albumUrl" />
-    <div>
-      <div class="track-list-item-details">
-        <p class="track-list-item-title">{{ playbackState.track.title }}</p>
-        <p class="track-list-item-artist">{{ playbackState.track.artist.name }}</p>
-      </div>
-      <div class="track-list-item-details">
-        <input type="range" min="0" v-bind:max="playbackState.track.length" class="tone-slider" v-model="playbackState.progress" />
-      </div>
-    </div>
-    <a class="playpause-button" @click="startStop">
+    <img class="player-image" :src="playbackState.track.albumUrl" />
+    <a class="image-playpause-overlay" @click="startStop">
       <i v-if="!playbackState.isPlaying" class="fa-solid fa-play fa-fw"></i>
       <i v-if="playbackState.isPlaying" class="fa-solid fa-pause fa-fw"></i>
     </a>
+    <div class="player-track-details">
+      <a class="player-track-title" target="_blank" :href="`https://open.spotify.com/track/${playbackState.track.id}`">{{ playbackState.track.title }}</a>
+      <a class="player-track-artist" target="_blank" :href="playbackState.track.artist.external_urls.spotify">{{ playbackState.track.artist.name }}</a>
+    </div>
   </div>
 </template>
