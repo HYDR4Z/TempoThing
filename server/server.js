@@ -9,24 +9,30 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get("/test", () => {
+  res.json({
+    status: 'online'
+  });
+});
+
 app.post("/refresh", (req, res) => {
   const refreshToken = req.body.refreshToken;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: process.env.REDIRECT_URI,
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    refreshToken,
+    refreshToken
   });
 
   spotifyApi.refreshAccessToken()
     .then(data => {
       res.json({
         accessToken: data.body.accessToken,
-        expiresIn: data.body.expiresIn,
-      })
+        expiresIn: data.body.expiresIn
+      });
     }).catch(err => {
-      console.log(err)
-      res.sendStatus(400)
+      console.log(err);
+      res.sendStatus(400);
     });
 });
 
@@ -35,7 +41,7 @@ app.post("/login", (req, res) => {
   const spotifyApi = new SpotifyWebApi({
     redirectUri: process.env.REDIRECT_URI,
     clientId: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
+    clientSecret: process.env.CLIENT_SECRET
   });
 
   spotifyApi.authorizationCodeGrant(code)
@@ -43,11 +49,11 @@ app.post("/login", (req, res) => {
       res.json({
         accessToken: data.body.access_token,
         refreshToken: data.body.refresh_token,
-        expiresIn: data.body.expires_in,
+        expiresIn: data.body.expires_in
       })
     }).catch(err => {
-      console.log(err)
-      res.sendStatus(400)
+      console.log(err);
+      res.sendStatus(400);
     });
 });
 
