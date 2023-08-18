@@ -1,7 +1,7 @@
 <script setup>
   import Songs from './components/Songs.vue';
   import Playlists from './components/Playlists.vue';
-  import Login from './components/Login.vue';
+  import Auth from './components/Auth.vue';
   import Metronome from './components/Metronome.vue';
   import Player from './components/Player.vue';
   import { ref } from 'vue';
@@ -31,7 +31,7 @@
     <h1>TempoThing</h1>
     <div class="nav-wrapper">
       <p></p>
-      <Login v-if="!accessToken" @onAuthChanged="onAuthChanged" />
+      <Auth @onAuthChanged="onAuthChanged" />
     </div>
   </header>
   <main>

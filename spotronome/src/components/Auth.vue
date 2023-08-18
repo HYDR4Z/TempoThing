@@ -1,8 +1,13 @@
 <script setup>
   import { onMounted, ref, watch } from 'vue';
   import axios from 'axios';
+  import SpotifyWebApi from 'spotify-web-api-node';
 
   const emit = defineEmits(['onAuthChanged']);
+
+  const spotifyApi = new SpotifyWebApi({
+    clientId: 'dde63debce154f3f85fa86c5b6e43ddb'
+  });
 
   const AUTH_URL = "https://accounts.spotify.com/authorize?" + 
   new URLSearchParams({
@@ -17,6 +22,7 @@
   const accessToken = ref('');
   const refreshToken = ref('');
   const expiresIn = ref(0);
+  const user = ref(null);
 
   onMounted(() => {
     if (!code) return;
@@ -44,16 +50,18 @@
     return () => clearInterval(refreshInterval);
   }, { immediate: true });
 
-
-  // TODO: Add user avatar or something
-  // spotifyApi.getMe()
-  // .then(function(data) {
-  //   console.log('Some information about the authenticated user', data.body);
-  // }, function(err) {
-  //   console.log('Something went wrong!', err);
-  // });
+  watch(accessToken, () => {
+    if (!accessToken.value) return;
+    spotifyApi.setAccessToken(accessToken.value);
+    spotifyApi.getMe().then(res => {
+      user.value = {
+        name: res.body.display_name
+      };
+    });
+  }, { immediate: true });
 </script>
 
 <template>
-  <a :href="AUTH_URL">Login</a>
+  <a v-if="!accessToken" :href="AUTH_URL">Login</a>
+  <p v-if="accessToken && user">{{ user.name }}</p>
 </template>
