@@ -109,7 +109,10 @@
     </a>
     <div class="metronome-section">
       <div class="tempo-input-wrapper">
-        <i class="fa-solid fa-hand-point-up fa-fw" :class="{ 'tap-button-highlight': tapTimeoutId }" @click="onTap"></i>
+        <div class="tooltip">
+          <i class="fa-solid fa-hand-point-up fa-fw tooltipped" :class="{ 'tap-button-highlight': tapTimeoutId }" @click="onTap"></i>
+          <span class="tooltip-text">BPM Tap</span>
+        </div>
         <input class="box-input" type="number" v-model="tempo" />
       </div>
       <div class="volume-input-wrapper">

@@ -90,6 +90,12 @@
     });
   }
 
+  const changeDevice = () => {
+    spotifyApi.getMyDevices().then((data) => {
+      console.log(data.body);
+    });
+  }
+
   defineExpose({
     playTrack
   });
@@ -109,14 +115,29 @@
     </div>
     <div class="player-section">
       <div class="player-control-buttons">
-        <i class="fa-solid fa-computer fa-fw"></i>
-        <i class="fa-solid fa-backward fa-fw" @click="previousSong"></i>
-        <a class="player-playpause" @click="startStop">
-          <i v-if="!playbackState.isPlaying" class="fa-solid fa-play fa-fw"></i>
-          <i v-if="playbackState.isPlaying" class="fa-solid fa-pause fa-fw"></i>
-        </a>
-        <i class="fa-solid fa-forward fa-fw" @click="skipSong"></i>
-        <i class="fa-solid fa-rotate fa-fw" @click="syncMetronome"></i>
+        <div class="tooltip">
+          <i class="fa-solid fa-computer fa-fw" @click="changeDevice"></i>
+          <span class="tooltip-text">N/A</span>
+        </div>
+        <div class="tooltip">
+          <i class="fa-solid fa-backward fa-fw" @click="previousSong"></i>
+          <span class="tooltip-text">Previous</span>
+        </div>
+        <div class="tooltip">
+          <a class="player-playpause" @click="startStop">
+            <i v-if="!playbackState.isPlaying" class="fa-solid fa-play fa-fw"></i>
+            <i v-if="playbackState.isPlaying" class="fa-solid fa-pause fa-fw"></i>
+          </a>
+          <span class="tooltip-text">{{ playbackState.isPlaying ? 'Pause' : 'Resume' }}</span>
+        </div>
+        <div class="tooltip">
+          <i class="fa-solid fa-forward fa-fw" @click="skipSong"></i>
+          <span class="tooltip-text">Skip</span>
+        </div>
+        <div class="tooltip">
+          <i class="fa-solid fa-rotate fa-fw" @click="syncMetronome"></i>
+          <span class="tooltip-text">Set BPM</span>
+        </div>
       </div>
       <input type="range" min="0" :max="playbackState.track.length" class="tone-slider" @input="onProgressInput" @change="setProgress" v-model="playbackState.progress" />
     </div>

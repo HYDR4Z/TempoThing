@@ -272,7 +272,7 @@ input::-webkit-inner-spin-button {
   width: 100%;
 }
 
-.tempo-input-wrapper > i {
+.tempo-input-wrapper i {
   cursor: pointer;
 }
 
@@ -310,6 +310,7 @@ input::-webkit-inner-spin-button {
 .player-image {
   width: 64px;
   height: 64px;
+  border: 1px solid white;
 }
 
 .image-playpause-overlay {
@@ -371,12 +372,12 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
 }
 
-.player-control-buttons > i:first-child {
-  padding-right: 24px;
+.player-control-buttons > div:first-child {
+  margin-right: 24px;
 }
 
-.player-control-buttons > i:last-child {
-  padding-left: 24px;
+.player-control-buttons > div:last-child {
+  margin-left: 24px;
 }
 
 .no-select {
@@ -417,6 +418,45 @@ input[type="range"] {
   cursor: pointer;
   border-radius: 12px;
   -webkit-appearance: none;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-text {
+  opacity: 0;
+  visibility: hidden;
+  transition: none;
+  width: 110px;
+  background-color: rgb(22, 22, 22);
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -55px;
+}
+
+.tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  transition: .2s ease;
+  opacity: 1;
 }
 
 ::-webkit-slider-runnable-track {
