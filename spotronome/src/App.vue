@@ -32,7 +32,7 @@
 
 <template>
   <header>
-    <h1>TempoThing</h1>
+    <h1 class="no-select">TempoThing</h1>
     <div class="nav-wrapper">
       <p></p>
       <Auth @onAuthChanged="onAuthChanged" />
@@ -44,7 +44,7 @@
       <Songs :token="accessToken" @onTrackPlay="onTrackPlay" />
     </div>
     <h2 class="signin-text" v-if="!accessToken">
-      <a>Sign in using Spotify</a> to sync to your music
+      Sign in using Spotify to sync to your music
     </h2>
   </main>
   <footer>
