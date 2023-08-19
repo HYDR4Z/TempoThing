@@ -31,7 +31,6 @@ app.post("/refresh", (req, res) => {
         expiresIn: data.body.expiresIn
       });
     }).catch(err => {
-      console.log(err);
       res.sendStatus(400);
     });
 });
@@ -52,9 +51,8 @@ app.post("/login", (req, res) => {
         expiresIn: data.body.expires_in
       })
     }).catch(err => {
-      console.log(err);
       res.sendStatus(400);
     });
 });
 
-app.listen(3001);
+app.listen(process.env.PORT);
