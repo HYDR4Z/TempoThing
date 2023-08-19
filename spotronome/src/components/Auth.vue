@@ -23,13 +23,11 @@
   const refreshToken = ref('');
   const expiresIn = ref(0);
   const user = ref(null);
-  const authServerReady = ref(false);
+  const loading = ref(false);
 
   onMounted(() => {
-    axios.get(`${import.meta.env.VITE_AUTH_ENDPOINT}/wake`).then(res => {
-      authServerReady.value = true;
-    });
     if (!code) return;
+    loading.value = true;
     axios.post(`${import.meta.env.VITE_AUTH_ENDPOINT}/login`, {
       code
     }).then(res => {
@@ -38,8 +36,10 @@
       expiresIn.value = res.data.expiresIn;
       emit('onAuthChanged', accessToken.value);
       window.history.pushState({}, null, '/tempothing');
+      loading.value = false;
     }).catch(e => {
       window.history.pushState({}, null, '/tempothing');
+      loading.value = false;
     });
   });
 
@@ -68,9 +68,9 @@
 </script>
 
 <template>
-  <div v-if="authServerReady">
+  <div v-if="!loading">
     <a v-if="!accessToken" :href="AUTH_URL" class="no-select">Login</a>
     <p v-if="accessToken && user">{{ user.name }}</p>
   </div>
-  <div v-if="!authServerReady" class="spinner small-spinner"></div>
+  <div v-if="loading" class="spinner small-spinner"></div>
 </template>

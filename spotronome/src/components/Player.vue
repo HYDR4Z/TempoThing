@@ -86,7 +86,7 @@
 
   const setProgress = (e) => {
     spotifyApi.seek(e.target.value * 1000).then(res => {
-      draggingTimebar.value = true;
+      draggingTimebar.value = false;
     });
   }
 
